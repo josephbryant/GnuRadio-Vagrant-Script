@@ -23,13 +23,35 @@ apt-get --yes --force-yes install python-gtk2-dev
 apt-get --yes --force-yes install doxygen
 apt-get --yes --force-yes install doxygen-gui
 apt-get --yes --force-yes install graphviz
+apt-get --yes --force-yes install git-core
+apt-get --yes --force-yes install g++
+apt-get --yes --force-yes install python-dev
+apt-get --yes --force-yes install pkg-config
+apt-get --yes --force-yes install python-cheetah
+apt-get --yes --force-yes install python-lxml
+apt-get --yes --force-yes install libxi-dev
+apt-get --yes --force-yes install python-sip
+apt-get --yes --force-yes install libqt4-opengl-dev
+apt-get --yes --force-yes install libfontconfig1-dev
+apt-get --yes --force-yes install libxrender-dev
+apt-get --yes --force-yes install python-sip
+apt-get --yes --force-yes install python-sip-dev
+apt-get --yes --force-yes install libboost-all-dev
+apt-get --yes --force-yes install libusb-1.0-0-dev
+apt-get --yes --force-yes install python-mako
+apt-get --yes --force-yes install python-docutils
+
 
 sudo pip install pyside
 
-wget https://gnuradio.org/releases/gnuradio/gnuradio-3.7.8rc1.tar.gz
-tar -xvzf gnuradio-3.7.8rc1.tar.gz
-cd gnuradio-3.7.8rc1.tar.gz
+export PYTHONPATH=/opt/qt/lib/python2.7/dist-package
+
+git clone --recursive http://git.gnuradio.org/git/gnuradio.git
+
+cd gnuradio
 mkdir build
 cd build
 cmake ..
+sudo make
+sudo make install
 
