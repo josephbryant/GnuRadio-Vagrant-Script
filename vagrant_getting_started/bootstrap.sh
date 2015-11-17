@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 apt-get update
+
+#Everything below here is mentioned as being a prereq for 
+#GNURadio except Vim, Vim is just swell. Love Vim.
 apt-get --yes --force-yes install python
 apt-get --yes --force-yes install vim
 apt-get --yes --force-yes install cmake
@@ -40,18 +43,35 @@ apt-get --yes --force-yes install libboost-all-dev
 apt-get --yes --force-yes install libusb-1.0-0-dev
 apt-get --yes --force-yes install python-mako
 apt-get --yes --force-yes install python-docutils
-
+apt-get --yes --force-yes install xinitx
 
 sudo pip install pyside
 
-export PYTHONPATH=/opt/qt/lib/python2.7/dist-package
+#These were to allow for qt to work, but seem to be errors
+export PYTHONPATH=$PYTHONPATH:/opt/qt/lib/python2.7/dist-package
+export PYTHONPATH=$PYTHONPATH:/usr/bin/python
 
 git clone --recursive http://git.gnuradio.org/git/gnuradio.git
 
+
+#Here we build gnuradio from sources
+#This will be the longest process
 cd gnuradio
 mkdir build
 cd build
 cmake ..
 sudo make
 sudo make install
+
+sudo ldconfig
+
+#remove standard packages of UHD if they are there
+sudo apt-get --yes --force-yes remove libuhd-dev
+sudo apt-get --yes --force-yes remove libuhd003
+sudo apt-get --yes --force-yes remove uhd-host
+
+#Install UHD Using Ettus Repos
+sudo bash -c 'echo "deb http://files.ettus.com/binaries/uhd/repo/uhd/ubuntu/`lsb_release -cs` `lsb_release -cs` main" > /etc/apt/sources.list.d/ettus.list'
+sudo apt-get update
+sudo apt-get --yes --force-yes install -t `lsb_release -cs` uhd
 
