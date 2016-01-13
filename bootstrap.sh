@@ -74,3 +74,19 @@ sudo make
 sudo make install
 
 sudo ldconfig
+
+
+##Now we will download gr-mac
+cd ..
+cd ..
+git clone https://github.com/balint256/gr-mac.git
+cd gr-mac
+mkdir build
+cd build
+cmake ..
+sudo make
+sudo make install
+
+sudo ldconfig
+
+
