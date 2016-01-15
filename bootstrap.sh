@@ -44,6 +44,11 @@ apt-get --yes --force-yes install libusb-1.0-0-dev
 apt-get --yes --force-yes install python-mako
 apt-get --yes --force-yes install python-docutils
 apt-get --yes --force-yes install xinitx
+apt-get --yes --force-yes install gnome
+
+#Install Bat-ctl
+apt-get --yes --force-yes install batctl
+sudo modprobe batman-adv
 
 sudo pip install pyside
 
