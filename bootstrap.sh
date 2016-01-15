@@ -44,11 +44,6 @@ apt-get --yes --force-yes install libusb-1.0-0-dev
 apt-get --yes --force-yes install python-mako
 apt-get --yes --force-yes install python-docutils
 apt-get --yes --force-yes install xinitx
-apt-get --yes --force-yes install gnome
-
-#Install Bat-ctl
-apt-get --yes --force-yes install batctl
-sudo modprobe batman-adv
 
 sudo pip install pyside
 
@@ -56,8 +51,18 @@ sudo pip install pyside
 export PYTHONPATH=$PYTHONPATH:/opt/qt/lib/python2.7/dist-package
 export PYTHONPATH=$PYTHONPATH:/usr/bin/python
 
-git clone --recursive http://git.gnuradio.org/git/gnuradio.git
 
+#remove standard packages of UHD if they are there
+sudo apt-get --yes --force-yes remove libuhd-dev
+sudo apt-get --yes --force-yes remove libuhd003
+sudo apt-get --yes --force-yes remove uhd-host
+
+#Install UHD Using Ettus Repos
+sudo bash -c 'echo "deb http://files.ettus.com/binaries/uhd/repo/uhd/ubuntu/`lsb_release -cs` `lsb_release -cs` main" > /etc/apt/sources.list.d/ettus.list'
+sudo apt-get update
+sudo apt-get --yes --force-yes install -t `lsb_release -cs` uhd
+
+git clone --recursive http://git.gnuradio.org/git/gnuradio.git
 
 #Here we build gnuradio from sources
 #This will be the longest process
@@ -70,13 +75,18 @@ sudo make install
 
 sudo ldconfig
 
-#remove standard packages of UHD if they are there
-sudo apt-get --yes --force-yes remove libuhd-dev
-sudo apt-get --yes --force-yes remove libuhd003
-sudo apt-get --yes --force-yes remove uhd-host
 
-#Install UHD Using Ettus Repos
-sudo bash -c 'echo "deb http://files.ettus.com/binaries/uhd/repo/uhd/ubuntu/`lsb_release -cs` `lsb_release -cs` main" > /etc/apt/sources.list.d/ettus.list'
-sudo apt-get update
-sudo apt-get --yes --force-yes install -t `lsb_release -cs` uhd
+##Now we will download gr-mac
+cd ..
+cd ..
+git clone https://github.com/balint256/gr-mac.git
+cd gr-mac
+mkdir build
+cd build
+cmake ..
+sudo make
+sudo make install
+
+sudo ldconfig
+
 
