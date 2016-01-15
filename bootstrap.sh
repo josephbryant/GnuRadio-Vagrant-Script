@@ -92,4 +92,11 @@ sudo make install
 
 sudo ldconfig
 
+#TODO
+cd ..
+cd ..
+git clone git://git.osmocom.org/rtl-sdr.git
+cd 
+
+
 
