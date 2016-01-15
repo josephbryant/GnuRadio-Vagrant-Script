@@ -46,6 +46,7 @@ apt-get --yes --force-yes install python-docutils
 apt-get --yes --force-yes install xinitx
 apt-get --yes --force-yes install batctl
 apt-get --yes --force-yes install gnome
+apt-get --yes --force-yes install xinit
 
 sudo pip install pyside
 
